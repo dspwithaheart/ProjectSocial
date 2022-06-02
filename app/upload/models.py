@@ -1,6 +1,6 @@
 ## models.py
 from djongo import models
-
+# from django.db import models
 # from django.conf import settings
 
 # Add the import for GridFSStorage
@@ -10,10 +10,19 @@ from djongo.storage import GridFSStorage
 # Define your GrifFSStorage instance 
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join(['myfiles/']))
 
+class ObjectIdField(models.Field):
+    def __init__(self, *args, **kwargs):
+        return self
+
 class IdToken(models.Model):
-    token = models.JSONField()
-    def __str__(self):
-        return self.token
+    # token_id = models.AutoField(primary_key=True)
+    _id = models.ObjectIdField()
+    token = models.CharField(max_length=200) #models.JSONField()
+    
+    class Meta:
+        indexes = [ ]
+    # objects = models.DjongoManager()
+   
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
@@ -21,27 +30,40 @@ class Person(models.Model):
     role = models.CharField(max_length=50)
     avatar = models.ImageField(upload_to='persons', storage=grid_fs_storage)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        abstract = True
+
 
 class Comment(models.Model):
     comment = models.CharField(max_length=100)
     date = models.DateField()
-    person = models.ManyToManyField(Person)
+    # person = models.Field(Person)
+    # person = models.EmbeddedField(
+    #     model_container=Person,
+    # )
+    
+    class Meta:
+        abstract = True
 
-    def __str__(self):
-        return self.comment
 
 class Entry(models.Model):
+    # entry_id = models.AutoField(primary_key=True)
+    _id = models.ObjectIdField()
     headline = models.CharField(max_length=255)
     body_text = models.TextField()
     pub_date = models.DateField()
     mod_date = models.DateField()
-    person = models.ManyToManyField(Person)
+
+    # person = models.EmbeddedField(
+    #     model_container=Person,
+    # )
+    # person = models.Field(Person)
     n_likes = models.IntegerField()
-    comment =  models.ManyToManyField(Comment)
+    # comment =  models.Field(Comment)
+    # comment = models.EmbeddedField(
+    #     model_container=Comment,
+    # )
     rating = models.IntegerField()
     featured_image = models.ImageField(upload_to='entries', storage=grid_fs_storage)
 
-    def __str__(self):
-        return self.headline
+    

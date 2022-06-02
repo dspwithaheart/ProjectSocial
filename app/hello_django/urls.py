@@ -40,14 +40,17 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = IdToken
         fields = '__all__'
+        
 # ViewSets define the view behavior.
 class EntryViewSet(viewsets.ModelViewSet):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
+    filterset_fields = '__all__'
 
 class TokenViewSet(viewsets.ModelViewSet):
     queryset = IdToken.objects.all()
     serializer_class = TokenSerializer
+    filterset_fields = '__all__'
 
 
 

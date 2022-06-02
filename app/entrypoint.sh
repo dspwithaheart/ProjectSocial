@@ -23,6 +23,7 @@ then
     echo "mongo started"
 fi
 python manage.py flush --no-input
+# python manage.py makemigrations hello_django
 python manage.py migrate
 
 exec "$@"

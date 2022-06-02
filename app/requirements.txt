@@ -5,3 +5,4 @@ djongo
 Pillow
 drf-yasg
 djangorestframework
+rest-meets-djongo

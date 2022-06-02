@@ -90,15 +90,16 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": os.environ.get('MONGO_DB_NAME'),
+        "ENFORCE_SCHEMA": False,
         "CLIENT": {
             "host": os.environ.get('MONGO_DB_HOST'),
             "port": int(os.environ.get('MONGO_DB_PORT')),
             "username": os.environ.get('MONGO_DB_USERNAME'),
             "password": os.environ.get('MONGO_DB_PASSWORD'),
         },
-        'TEST': {
-            'MIRROR': 'default',
-        },
+        # 'TEST': {
+        #     'MIRROR': 'default',
+        # },
     }
 }
 
@@ -107,9 +108,9 @@ DATABASES = {
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ]
 }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -135,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Amsterdam'
 
 USE_I18N = True
 
@@ -153,8 +154,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
-
+UPLOADED_FILES_USE_URL = False
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
