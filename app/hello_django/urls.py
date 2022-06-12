@@ -14,6 +14,8 @@ from rest_framework import routers, serializers, viewsets
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from rest_framework_simplejwt import views as jwt_views
+from rest_framework.permissions import IsAuthenticated
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -26,6 +28,7 @@ schema_view = get_schema_view(
    ),
    public=True,
    permission_classes=[permissions.AllowAny],
+    # permission_classes = [IsAuthenticated]
 )
 
 
@@ -48,6 +51,7 @@ class EntryViewSet(viewsets.ModelViewSet):
     filterset_fields = '__all__'
 
 class TokenViewSet(viewsets.ModelViewSet):
+    # permission_classes = [IsAuthenticated]
     queryset = IdToken.objects.all()
     serializer_class = TokenSerializer
     filterset_fields = '__all__'
@@ -68,6 +72,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # JWT URLs...
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 if bool(settings.DEBUG):

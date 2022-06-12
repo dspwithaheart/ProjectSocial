@@ -6,3 +6,4 @@ Pillow
 drf-yasg
 djangorestframework
 rest-meets-djongo
+djangorestframework_simplejwt

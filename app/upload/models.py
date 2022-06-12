@@ -64,6 +64,6 @@ class Entry(models.Model):
     #     model_container=Comment,
     # )
     rating = models.IntegerField()
-    featured_image = models.ImageField(upload_to='entries', storage=grid_fs_storage)
+    featured_image = models.ImageField(upload_to='entries', storage=grid_fs_storage, blank=True)
 
     
