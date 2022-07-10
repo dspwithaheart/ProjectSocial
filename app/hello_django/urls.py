@@ -4,7 +4,7 @@ from django.urls import include, path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from upload.views import image_upload
+from upload.views import image_upload, MyTokenObtainPairView
 from upload.models import Entry, IdToken
 
 from django.conf.urls import url
@@ -75,7 +75,9 @@ urlpatterns = [
     # JWT URLs...
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/customtoken/', MyTokenObtainPairView.as_view(), name='token_refresh'),
 ]
+
 
 if bool(settings.DEBUG):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
