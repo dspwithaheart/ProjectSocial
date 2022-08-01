@@ -14,6 +14,27 @@ class ObjectIdField(models.Field):
     def __init__(self, *args, **kwargs):
         return self
 
+class Entry(models.Model):
+    # entry_id = models.AutoField(primary_key=True)
+    _id = models.ObjectIdField()
+    headline = models.CharField(max_length=255)
+    body_text = models.TextField()
+    pub_date = models.DateField()
+    mod_date = models.DateField()
+
+    # person = models.EmbeddedField(
+    #     model_container=Person,
+    # )
+    # person = models.Field(Person)
+    n_likes = models.IntegerField()
+    # comment =  models.Field(Comment)
+    # comment = models.EmbeddedField(
+    #     model_container=Comment,
+    # )
+    rating = models.IntegerField()
+    featured_image = models.ImageField(upload_to='entries', storage=grid_fs_storage, blank=True)
+
+
 class IdToken(models.Model):
     # token_id = models.AutoField(primary_key=True)
     _id = models.ObjectIdField()
@@ -44,26 +65,3 @@ class Comment(models.Model):
     
     class Meta:
         abstract = True
-
-
-class Entry(models.Model):
-    # entry_id = models.AutoField(primary_key=True)
-    _id = models.ObjectIdField()
-    headline = models.CharField(max_length=255)
-    body_text = models.TextField()
-    pub_date = models.DateField()
-    mod_date = models.DateField()
-
-    # person = models.EmbeddedField(
-    #     model_container=Person,
-    # )
-    # person = models.Field(Person)
-    n_likes = models.IntegerField()
-    # comment =  models.Field(Comment)
-    # comment = models.EmbeddedField(
-    #     model_container=Comment,
-    # )
-    rating = models.IntegerField()
-    featured_image = models.ImageField(upload_to='entries', storage=grid_fs_storage, blank=True)
-
-    

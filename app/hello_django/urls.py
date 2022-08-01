@@ -61,7 +61,7 @@ class TokenViewSet(viewsets.ModelViewSet):
 # Definition of REST endpoints
 router = routers.DefaultRouter()
 router.register(r'entry', EntryViewSet)
-router.register(r'token', TokenViewSet)
+# router.register(r'token', TokenViewSet)
 
 
 urlpatterns = [
@@ -75,7 +75,7 @@ urlpatterns = [
     # JWT URLs...
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/customtoken/', MyTokenObtainPairView.as_view(), name='token_refresh'),
+    # path('api/customtoken/', MyTokenObtainPairView.as_view(), name='token_refresh'),
 ]
 
 
